@@ -77,7 +77,7 @@ function onWindowResize() {
 }
 
 function createLights() {
-    light = new THREE.HemisphereLight(0xffffff, 0xffffff, .8)
+    light = new THREE.HemisphereLight(0xffffff, 0xffffff, .5)
 
     shadowLight = new THREE.DirectionalLight(0xffffff, .8);
     shadowLight.position.set(200, 200, 200);
@@ -214,10 +214,12 @@ Rabbit = function () {
 
     var earGeom = new THREE.BoxGeometry(5, 60, 10, 1);
     earGeom.applyMatrix(new THREE.Matrix4().makeTranslation(0, 5, 0));
-    earGeom.vertices[1].z += -5;
-    earGeom.vertices[4].z += -5;
+    earGeom.vertices[1].z += -7;
+    earGeom.vertices[4].z += -7;
     earGeom.vertices[5].z += +1;
     earGeom.vertices[7].z += +1;
+    earGeom.vertices[5].x += -5;
+    earGeom.vertices[1].x += +5;
 
     var eyeGeom = new THREE.BoxGeometry(20, 20, 8, 1);
     var irisGeom = new THREE.BoxGeometry(8, 8, 8, 1);
