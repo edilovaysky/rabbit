@@ -62,7 +62,7 @@ function init() {
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controls.enableZoom = true;
-    controls.autoRotate = true;
+    //controls.autoRotate = true;
 }
 
 
@@ -77,7 +77,7 @@ function onWindowResize() {
 }
 
 function createLights() {
-    light = new THREE.HemisphereLight(0xffffff, 0xffffff, .5)
+    light = new THREE.HemisphereLight(0xffffff, 0xffffff, .8)
 
     shadowLight = new THREE.DirectionalLight(0xffffff, .8);
     shadowLight.position.set(200, 200, 200);
@@ -164,7 +164,7 @@ Carrot = function () {
     });
 
     this.carrotMesh.scale.set(2, 2, 2);
-    this.carrotMesh.position.set(-200, 0, 0);
+    this.carrotMesh.position.set(-150, 0, 150);
 }
 
 Rabbit = function () {
@@ -419,6 +419,7 @@ Rabbit = function () {
 
     this.rabbitMesh.add(this.bodyMesh);
     this.rabbitMesh.add(this.headMesh);
+    this.rabbitMesh.rotation.y = -150;
 }
 
 
