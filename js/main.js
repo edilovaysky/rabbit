@@ -63,6 +63,13 @@ function init() {
     controls.dampingFactor = 0.25;
     controls.enableZoom = true;
     //controls.autoRotate = true;
+
+    var grid = new THREE.GridHelper(2000, 40, 0x000000, 0x000000);
+    grid.material.opacity = 0.2;
+    grid.material.transparent = true;
+    grid.receiveShadow = true;
+    grid.position.y = -35;
+    scene.add(grid);
 }
 
 
@@ -251,10 +258,12 @@ Rabbit = function () {
 
     this.body = new THREE.Mesh(bodyGeom, bodyMat);
     this.bodyMesh.add(this.body);
+    this.body.castShadow = true;
 
     this.head = new THREE.Mesh(headGeom, bodyMat);
     this.head.position.x = -30;
     this.head.position.y = 30;
+    this.head.castShadow = true;
 
     this.cheekL = new THREE.Mesh(cheekGeom, tailMat);
     this.cheekL.position.x = -19;
@@ -344,7 +353,7 @@ Rabbit = function () {
     this.earR = new THREE.Mesh(earGeom, pawMat);
     this.earR.position.x = -9;
     this.earR.position.y = 72;
-    this.earR.position.z = -16;
+    this.earR.position.z = -13;
     this.earR.rotation.z = -.1;
 
     this.earL = this.earR.clone();
@@ -422,7 +431,78 @@ Rabbit = function () {
     this.rabbitMesh.add(this.bodyMesh);
     this.rabbitMesh.add(this.headMesh);
     this.rabbitMesh.rotation.y = -150;
+
+    var sp = .5 + Math.random();
+    if (Math.random() > .2) TweenMax.to([this.eyeR.scale, this.eyeL.scale], sp / 8, {
+        y: 0,
+        ease: Power1.easeInOut,
+        yoyo: true,
+        repeat: 3
+    });
+
 }
+
+Rabbit.prototype.jump = function () {
+    // if (this.status == "jumping") return;
+    //this.status = "jumping";
+    var _this = this;
+    var speed = 6;
+    var totalSpeed = 10 / speed;
+    var jumpHeight = 45;
+
+    TweenMax.to(this.earL.rotation, totalSpeed, {
+        z: "+=.3",
+        ease: Back.easeOut
+    });
+    TweenMax.to(this.earR.rotation, totalSpeed, {
+        z: "-=.3",
+        ease: Back.easeOut
+    });
+
+    TweenMax.to(this.pawFL.rotation, totalSpeed, {
+        z: "+=.7",
+        ease: Back.easeOut
+    });
+    TweenMax.to(this.pawFR.rotation, totalSpeed, {
+        z: "-=.7",
+        ease: Back.easeOut
+    });
+    TweenMax.to(this.pawBL.rotation, totalSpeed, {
+        z: "+=.7",
+        ease: Back.easeOut
+    });
+    TweenMax.to(this.pawBR.rotation, totalSpeed, {
+        z: "-=.7",
+        ease: Back.easeOut
+    });
+
+    TweenMax.to(this.tail.rotation, totalSpeed, {
+        z: "+=1",
+        ease: Back.easeOut
+    });
+
+    TweenMax.to(this.mouth.rotation, totalSpeed, {
+        z: .5,
+        ease: Back.easeOut
+    });
+
+    TweenMax.to(this.mesh.position, totalSpeed / 2, {
+        y: jumpHeight,
+        ease: Power2.easeOut
+    });
+    TweenMax.to(this.mesh.position, totalSpeed / 2, {
+        y: 0,
+        ease: Power4.easeIn,
+        delay: totalSpeed / 2,
+        onComplete: function () {
+            //t = 0;
+            _this.status = "running";
+        }
+    });
+
+}
+
+
 
 
 
@@ -437,4 +517,5 @@ createLights();
 createFloor();
 createCarrot();
 createRabbit();
+//Rabbit.prototype.jump();
 render();
