@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>3D objects</title>
+    <link rel="stylesheet" href="css/normolize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div id="world"></div>
+    <div id="instructions">
+      Собери морковь<br /><span class="lightInstructions">Кролик & морковь</span>
+    </div>
+    <div id="tasks" class="menu">
+      <input id="show-task" type="button" value="Посмотреть задание"/>
+      <input id="close-task" type="button" value="X"/>
+      <input id="show-tools" type="button" value="Начать"/>
+      <input id="close-tools" type="button" value="X"/>
+    </div>
+
+    <div id="bottom-menu" class="menu">
+      <p>
+        <a href="https://codepen.io/dashboard/" target="blank"
+          >other codepens</a
+        >
+        | <a href="https://school-code.ru" target="blank">School-code.ru</a> |  
+        <input id="run" type="button" value="бег на месте"/>
+        <input id="jump" type="button" value="прыгнуть"/>
+        <input id="moveTest" type="button" value="шаг вперед"/>
+        <input id="right" type="button" value="в право"/>
+        <input id="left" type="button" value="в лево"/>
+        <input id="check" type="button" value="Check"/>
+      </p>
+    </div>
+    <script src="./js/js_libs/three.js"></script>
+    <script src="./js/js_libs/orditControls.js"></script>
+    <script src="./js/js_libs/TweenMax.js"></script>
+    <script src="./js/js_libs/DragControls.js"></script>
+    <script src="dist/build.js"></script>
+  </body>
+</html>
