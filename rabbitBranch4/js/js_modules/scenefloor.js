@@ -1,6 +1,7 @@
 var Floor;
 import Tree from "./tree";
 import Bridge from "./bridge";
+import LeafTree from "./leaftree";
 
 export default (Floor = function() {
   this.floorMesh = new THREE.Group();
@@ -59,7 +60,7 @@ export default (Floor = function() {
 
   // STREAM
   var streamMat = new THREE.MeshLambertMaterial({
-    color: 0x4493d4,
+    color: 0x0941ba,
     side: THREE.DoubleSide
   });
   var streamGeom = new THREE.BoxGeometry(200, 16, 1800);
@@ -71,25 +72,25 @@ export default (Floor = function() {
   var tree1 = new Tree(-100, 0, -100);
   var tree2 = new Tree(-150, 0, -180);
   var tree3 = new Tree(-100, 0, -220);
-  var tree4 = new Tree(-400, 0, -400);
+  var tree4 = new LeafTree(-400, 0, -400);
   var tree5 = new Tree(-878, 0, -878);
   var tree6 = new Tree(-810, 0, -810);
   var tree7 = new Tree(-740, 0, -870);
-  var tree8 = new Tree(888, 0, -680);
+  var tree8 = new Tree(688, 0, -680);
   var tree9 = new Tree(-880, 0, 680);
   var tree10 = new Tree(-320, 0, 240);
-  var tree11 = new Tree(-630, 0, 130);
-  var tree12 = new Tree(-480, 0, 480);
+  var tree11 = new LeafTree(-630, 0, 130);
+  var tree12 = new LeafTree(-480, 0, 480);
 
   var tree13 = new Tree(100, 0, 100);
   var tree14 = new Tree(150, 0, 180);
   var tree15 = new Tree(100, 0, 220);
-  var tree16 = new Tree(400, 0, 400);
+  var tree16 = new LeafTree(400, 0, 400);
   var tree17 = new Tree(880, 0, 830);
   var tree18 = new Tree(810, 0, 740);
   var tree19 = new Tree(740, 0, 820);
   var tree20 = new Tree(888, 0, 680);
-  var tree21 = new Tree(878, 0, -680);
+  var tree21 = new LeafTree(878, 0, -680);
   var tree22 = new Tree(320, 0, -240);
   var tree23 = new Tree(630, 0, -130);
   var tree24 = new Tree(480, 0, -480);

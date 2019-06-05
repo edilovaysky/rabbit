@@ -11,11 +11,11 @@ export default (Rabbit = function() {
   this.headMesh = new THREE.Group();
 
   var bodyMat = new THREE.MeshLambertMaterial({
-    color: 0x703f18
+    color: 0x5c6363 //703f18
   });
 
   var tailMat = new THREE.MeshLambertMaterial({
-    color: 0x8f8f8f
+    color: 0xc2bebe //8f8f8f
   });
 
   var nouseMat = new THREE.MeshLambertMaterial({
@@ -39,7 +39,7 @@ export default (Rabbit = function() {
   });
 
   var pawMat = new THREE.MeshLambertMaterial({
-    color: 0x995c5a
+    color: 0xbf6970 //995c5a
   });
 
   var bodyGeom = new THREE.BoxGeometry(50, 50, 42, 1);

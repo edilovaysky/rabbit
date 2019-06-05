@@ -25,12 +25,14 @@ var rabbitMoving = false;
 var rabbitJumping = false;
 var isTaskOpen = false;
 var isToolsOpen = false;
+var isCameraInRabbit = false;
 //SCENE
 var floor, rabbit;
 var objects = [];
 var drops = [];
 var count = 0;
 var carrot = [];
+var apple = [];
 
 //SCREEN VARIABLES
 
@@ -100,38 +102,36 @@ camera2.lookAt( scene2.position ); */
   controls.dynamicDampingFactor = 0.3; */
   onWindowResize();
   document.addEventListener("keydown", function(e) {
-   e = e || window.event;
-   if (e.keyCode == '65') {
-     turnLeft();
-   } else if (e.keyCode == "83") {
-     rabbitMoving = true;
-   } else if (e.keyCode == "68") {
-     turnRight();
-   }
-    else if (e.keyCode == "32") {
+    e = e || window.event;
+    if (e.keyCode == "65") {
+      turnLeft();
+    } else if (e.keyCode == "83") {
+      rabbitMoving = true;
+    } else if (e.keyCode == "68") {
+      turnRight();
+    } else if (e.keyCode == "32") {
       if (rabbitJumping == true) {
         return;
-      }
-      else if (rabbitJumping == false) {
+      } else if (rabbitJumping == false) {
         rabbit.jump();
         rabbitJumping = true;
       }
-   }
+    }
   });
 
-  document.addEventListener('keyup', function(e) {
+  document.addEventListener("keyup", function(e) {
     e = e || window.event;
-    if (e.keyCode == '83') {
+    if (e.keyCode == "83") {
       rabbitMoving = false;
       rabbit.killMove();
       rabbit.nod();
     }
-    if (e.keyCode == '32') { 
-          setTimeout(() =>{
-            rabbitJumping = false;
-          }, 800);  
+    if (e.keyCode == "32") {
+      setTimeout(() => {
+        rabbitJumping = false;
+      }, 800);
     }
-  })
+  });
 
   var showTask = document.getElementById("show-task");
   showTask.addEventListener("click", function() {
@@ -216,19 +216,11 @@ camera2.lookAt( scene2.position ); */
 
   var check = document.getElementById("check");
   check.addEventListener("click", function() {
-    /*  console.log(
-      rabbit.rabbitMesh.position
-        .clone()
-        .sub(floor.floorMesh.tree1.treeMesh.position.clone())
-    ); */
+    isCameraInRabbit = !isCameraInRabbit;
     console.log(rabbit.rabbitMesh.position);
   });
 
-  //scene.fog = new THREE.FogExp2(0xffffff, 0.00015);
-  // if (rabbitMoving == true) {
-  //rabbit.move();
-  //rabbit.killNod();
-  //}
+  //scene.fog = new THREE.FogExp2(0xffffff, 0.0005);
 }
 
 import Skybox from "./skybox";
@@ -264,12 +256,12 @@ function createLights() {
   backLight.position.set(-100, 200, 50);
   backLight.castShadow = true;
 
-  ambientLight = new THREE.AmbientLight(0xf0f0f0, 0.1);
+  ambientLight = new THREE.AmbientLight(0xf0f0f0, 0.05);
 
   scene.add(backLight);
   scene.add(light);
   scene.add(shadowLight);
-  //scene.add(ambientLight);
+  scene.add(ambientLight);
 }
 
 import Floor from "./scenefloor";
@@ -280,9 +272,16 @@ function createFloor() {
 
 import Carrot from "./carrot";
 function createCarrot() {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 25; i++) {
     carrot[i] = new Carrot();
     scene.add(carrot[i].carrotMesh);
+  }
+}
+import Apple from "./apples";
+function createApples() {
+  for (let i = 0; i < 20; i++) {
+    apple[i] = new Apple();
+    scene.add(apple[i].appleMesh);
   }
 }
 
@@ -312,7 +311,7 @@ function createDrags() {
 
 var Drop = function() {
   this.geometry = new THREE.BoxGeometry(15, 50, 5);
-  this.material = new THREE.MeshLambertMaterial({ color: 0x4493d4 });
+  this.material = new THREE.MeshLambertMaterial({ color: 0x0941ba });
   this.drop = new THREE.Mesh(this.geometry, this.material);
   this.drop.position.set(
     (Math.random() - 0.5) * 200,
@@ -358,7 +357,7 @@ function getCarrot(i, x) {
   setTimeout(() => {
     rabbit.jump();
   }, 500);
-  carrot[i].carrotMesh.position.set(0 + x, 100, 800);
+  carrot[i].carrotMesh.position.set(0 + x, 100, 400);
 }
 
 function checkCollision() {
@@ -423,9 +422,7 @@ function checkCollision() {
   if (rabbCarr10.length() <= 25) {
     getCarrot(9, 180);
   }
-  /*  if (rabbit.rabbitMesh.position == ) {
-    alert('stop')
-  } */
+
   var rabbFloor = floor.floorMesh.position
     .clone()
     .sub(rabbit.rabbitMesh.position.clone());
@@ -479,15 +476,24 @@ createLights();
 //createBar();
 createFloor();
 createCarrot();
-//console.log(carrot[0].carrotMesh.position.x, carrot[1].carrotMesh.position.x);
 carrot.forEach(carrot => {
   carrot.carrotMesh.position.set(
     170 * Math.random() * 3 + 300,
     -12,
-    700 * Math.random() * 1.2 - 300
+    1400 * Math.random() * 1.2 - 900
   );
 });
-
+createApples();
+apple.forEach(apple => {
+  apple.appleMesh.position.set(
+    -170 * Math.random() * 3 + -200,
+    -11,
+    700 * Math.random() * 1.2 - 400
+  );
+  apple.appleMesh.rotation.x = Math.sin(Math.random() * 10);
+  apple.appleMesh.rotation.y = Math.sin(Math.random() * 10);
+  apple.appleMesh.rotation.z = Math.sin(Math.random() * 10);
+});
 createRabbit();
 rabbit.blink();
 loop();
@@ -502,4 +508,3 @@ window.onload = function() {
   setTimeout(stopCamRotation, 4700);
   camera.position.z = 1600;
 };
-

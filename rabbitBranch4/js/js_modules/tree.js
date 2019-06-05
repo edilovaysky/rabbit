@@ -6,7 +6,10 @@ export default (Tree = function(x, y, z) {
   //TREES
   this.treeMesh = new THREE.Group();
   //TRUNK
-  var trunkMat = new THREE.MeshLambertMaterial({ color: 0x542609, side: THREE.DoubleSide });
+  var trunkMat = new THREE.MeshLambertMaterial({
+    color: 0x543b14,
+    side: THREE.DoubleSide
+  });
   var trunkGeom = new THREE.BoxGeometry(20, 200, 20);
   this.trunkMesh = new THREE.Mesh(trunkGeom, trunkMat);
   this.trunkMesh.position.set(0, 58, 0);
