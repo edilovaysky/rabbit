@@ -1,10 +1,43 @@
 'use strict';
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractLoader = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './js/js_modules/index.js',
+  entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
-    filename: './build.js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle[chunkhash].js',
   },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /\.s?css$/,
+        use: [
+          'style-loader',
+          MiniCssExtractLoader.loader,
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new MiniCssExtractLoader({
+      filename: 'style[contenthash].css',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src', 'index.html'),
+      filename: 'index.html',
+    }),
+  ],
   watch: true,
   watchOptions: {
     aggregateTimeout: 100,

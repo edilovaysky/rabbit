@@ -1,3 +1,7 @@
+//IMPORTS STYLE
+import './normolize.css';
+import './style.css';
+
 //THREEJS RELATED VARIABLES
 
 var scene,
@@ -46,7 +50,7 @@ var HEIGHT,
   windowHalfY,
   mousePos = {
     x: 0,
-    y: 0
+    y: 0,
   };
 //dist = 0;
 
@@ -54,7 +58,7 @@ function init() {
   //INIT THREE JS, SCREEN AND MOUSE EVENTS
   var textureLoader = new THREE.TextureLoader();
   scene = new THREE.Scene();
-  scene.background = textureLoader.load("../img/bgrabbit.jpg");
+  scene.background = textureLoader.load('../img/bgrabbit.jpg');
   //scene.fog = new THREE.Fog(0xc1c1f5, 100, 3000);
   HEIGHT = window.innerHeight;
   WIDTH = window.innerWidth;
@@ -74,7 +78,7 @@ function init() {
   camera.lookAt(new THREE.Vector3(0, 0, 0));
   renderer = new THREE.WebGLRenderer({
     alpha: true,
-    antialias: true
+    antialias: true,
   });
   /* можно добавить вторую сцену со второй камерой
    camera2.position.copy( camera.position );
@@ -85,7 +89,7 @@ camera2.lookAt( scene2.position ); */
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(WIDTH, HEIGHT);
   renderer.shadowMap.Enabled = true;
-  container = document.getElementById("world");
+  container = document.getElementById('world');
   container.appendChild(renderer.domElement);
   windowHalfX = WIDTH / 2;
   windowHalfY = HEIGHT / 2;
@@ -105,15 +109,15 @@ camera2.lookAt( scene2.position ); */
   controls.staticMoving = true;
   controls.dynamicDampingFactor = 0.3; */
   onWindowResize();
-  document.addEventListener("keydown", function(e) {
+  document.addEventListener('keydown', function(e) {
     e = e || window.event;
-    if (e.keyCode == "65") {
+    if (e.keyCode == '65') {
       turnLeft();
-    } else if (e.keyCode == "83") {
+    } else if (e.keyCode == '83') {
       rabbitMoving = true;
-    } else if (e.keyCode == "68") {
+    } else if (e.keyCode == '68') {
       turnRight();
-    } else if (e.keyCode == "32") {
+    } else if (e.keyCode == '32') {
       if (rabbitJumping == true) {
         return;
       } else if (rabbitJumping == false) {
@@ -123,60 +127,60 @@ camera2.lookAt( scene2.position ); */
     }
   });
 
-  document.addEventListener("keyup", function(e) {
+  document.addEventListener('keyup', function(e) {
     e = e || window.event;
-    if (e.keyCode == "83") {
+    if (e.keyCode == '83') {
       rabbitMoving = false;
       rabbit.killMove();
       rabbit.nod();
     }
-    if (e.keyCode == "32") {
+    if (e.keyCode == '32') {
       setTimeout(() => {
         rabbitJumping = false;
       }, 800);
     }
   });
 
-  var showTask = document.getElementById("show-task");
-  showTask.addEventListener("click", function() {
+  var showTask = document.getElementById('show-task');
+  showTask.addEventListener('click', function() {
     if (isTaskOpen == false) {
-      taskElem = document.createElement("div");
-      taskElem.className = "task-сlass";
-      taskElem.id = "taskid";
+      taskElem = document.createElement('div');
+      taskElem.className = 'task-сlass';
+      taskElem.id = 'taskid';
       taskElem.innerHTML =
-        "<h1> Заголовок задания </h1> <p>Описание задания которое необходимо выполнить юному программисту.</p>";
+        '<h1> Заголовок задания </h1> <p>Описание задания которое необходимо выполнить юному программисту.</p>';
       tasks.appendChild(taskElem);
     }
     isTaskOpen = true;
   });
 
-  var closeTask = document.getElementById("close-task");
-  closeTask.addEventListener("click", function() {
+  var closeTask = document.getElementById('close-task');
+  closeTask.addEventListener('click', function() {
     if (isTaskOpen == true) {
       tasks.removeChild(taskElem);
     }
     isTaskOpen = false;
   });
 
-  var beginProgramming = document.getElementById("show-tools");
-  beginProgramming.addEventListener("click", function() {
+  var beginProgramming = document.getElementById('show-tools');
+  beginProgramming.addEventListener('click', function() {
     if (isToolsOpen == false) {
-      toolsElem = document.createElement("div");
-      toolsElem.className = "tools-сlass";
-      toolsElem.id = "toolsid";
+      toolsElem = document.createElement('div');
+      toolsElem.className = 'tools-сlass';
+      toolsElem.id = 'toolsid';
       toolsElem.innerHTML =
-        "<h1> Инструменты </h1> <h3>Действия</h3><h3>Математика</h3><h3>События</h3><h3>Циклы</h3><h3>Условия</h3>";
+        '<h1> Инструменты </h1> <h3>Действия</h3><h3>Математика</h3><h3>События</h3><h3>Циклы</h3><h3>Условия</h3>';
       tasks.appendChild(toolsElem);
-      workspaceElem = document.createElement("div");
-      workspaceElem.className = "workspace-class";
-      workspaceElem.innerHTML = "place to recive draggable blocks";
+      workspaceElem = document.createElement('div');
+      workspaceElem.className = 'workspace-class';
+      workspaceElem.innerHTML = 'place to recive draggable blocks';
       tasks.appendChild(workspaceElem);
     }
     isToolsOpen = true;
   });
 
-  var stopProgramming = document.getElementById("close-tools");
-  stopProgramming.addEventListener("click", function() {
+  var stopProgramming = document.getElementById('close-tools');
+  stopProgramming.addEventListener('click', function() {
     if (isToolsOpen == true) {
       tasks.removeChild(toolsElem);
       tasks.removeChild(workspaceElem);
@@ -184,8 +188,8 @@ camera2.lookAt( scene2.position ); */
     isToolsOpen = false;
   });
 
-  var runTest = document.getElementById("run");
-  runTest.addEventListener("click", function() {
+  var runTest = document.getElementById('run');
+  runTest.addEventListener('click', function() {
     rabbitRunning = !rabbitRunning;
     if (rabbitRunning == false) {
       //setTimeout(rabbit.killMove.bind(rabbit), 2000);
@@ -194,39 +198,39 @@ camera2.lookAt( scene2.position ); */
     }
   });
 
-  var jumpTest = document.getElementById("jump");
-  jumpTest.addEventListener("click", function() {
+  var jumpTest = document.getElementById('jump');
+  jumpTest.addEventListener('click', function() {
     rabbitJumping = !rabbitJumping;
     rabbit.jump();
   });
 
-  var moveTest = document.getElementById("moveTest");
-  moveTest.addEventListener("click", function() {
+  var moveTest = document.getElementById('moveTest');
+  moveTest.addEventListener('click', function() {
     rabbitMoving = !rabbitMoving;
     if (rabbitMoving == true) {
       setTimeout(stopMove, 725);
     }
   });
 
-  var right = document.getElementById("right");
-  right.addEventListener("click", function() {
+  var right = document.getElementById('right');
+  right.addEventListener('click', function() {
     turnRight();
   });
 
-  var left = document.getElementById("left");
-  left.addEventListener("click", function() {
+  var left = document.getElementById('left');
+  left.addEventListener('click', function() {
     turnLeft();
   });
 
-  var check = document.getElementById("check");
-  check.addEventListener("click", function() {
+  var check = document.getElementById('check');
+  check.addEventListener('click', function() {
     isGetCarrot = !isGetCarrot;
   });
 
   //scene.fog = new THREE.FogExp2(0xffffff, 0.0005);
 }
 
-import Skybox from "./skybox";
+import Skybox from './skybox';
 function createSkybox() {
   skybox = new Skybox();
   scene.add(skybox.skyboxMesh);
@@ -267,20 +271,20 @@ function createLights() {
   scene.add(ambientLight);
 }
 
-import Floor from "./scenefloor";
+import Floor from './scenefloor';
 function createFloor() {
   floor = new Floor();
   scene.add(floor.floorMesh);
 }
 
-import Carrot from "./carrot";
+import Carrot from './carrot';
 function createCarrot() {
   for (let i = 0; i < 25; i++) {
     carrot[i] = new Carrot();
     scene.add(carrot[i].carrotMesh);
   }
 }
-import Apple from "./apples";
+import Apple from './apples';
 function createApples() {
   for (let i = 0; i < 25; i++) {
     apple[i] = new Apple();
@@ -289,14 +293,14 @@ function createApples() {
   }
 }
 
-import Rabbit from "./rabbit";
+import Rabbit from './rabbit';
 function createRabbit() {
   rabbit = new Rabbit();
   scene.add(rabbit.rabbitMesh);
   rabbit.nod();
 }
 
-import Bar from "./bars";
+import Bar from './bars';
 function createBar() {
   bar = new Bar();
   scene.add(bar.barMesh);
@@ -305,10 +309,10 @@ function createBar() {
 
 function createDrags() {
   dragControls = new THREE.DragControls(objects, camera, renderer.domElement);
-  dragControls.addEventListener("dragstart", function() {
+  dragControls.addEventListener('dragstart', function() {
     controls.enabled = false;
   });
-  dragControls.addEventListener("dragend", function() {
+  dragControls.addEventListener('dragend', function() {
     controls.enabled = true;
   });
 }
@@ -519,7 +523,7 @@ window.onload = function() {
   camera.position.z = 800;
   TweenMax.to(camera.position, 1.2, {
     z: 100,
-    ease: Power0.easeIn
+    ease: Power0.easeIn,
   });
   setTimeout(stopCamRotation, 4700);
   camera.position.z = 1600;

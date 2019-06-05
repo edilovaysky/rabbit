@@ -1,7 +1,7 @@
 var Floor;
-import Tree from "./tree";
-import Bridge from "./bridge";
-import LeafTree from "./leaftree";
+import Tree from './tree';
+import Bridge from './bridge';
+import LeafTree from './leaftree';
 
 export default (Floor = function() {
   this.floorMesh = new THREE.Group();
@@ -9,7 +9,7 @@ export default (Floor = function() {
   // LEFT FIELD
   var leftFieldMat = new THREE.MeshLambertMaterial({
     color: 0x75bd2d, //abd66a,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
   });
   var leftFieldGeom = new THREE.BoxGeometry(800, 30, 1800);
   this.leftFieldMesh = new THREE.Mesh(leftFieldGeom, leftFieldMat);
@@ -52,7 +52,7 @@ export default (Floor = function() {
   //STREAMGROUND
   var strGroundMat = new THREE.MeshLambertMaterial({
     color: 0x75bd2d,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
   });
   var strCroundGeom = new THREE.BoxGeometry(205, 10, 1800);
   this.strGroundMesh = new THREE.Mesh(strCroundGeom, strGroundMat);
@@ -61,7 +61,7 @@ export default (Floor = function() {
   // STREAM
   var streamMat = new THREE.MeshLambertMaterial({
     color: 0x0941ba,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
   });
   var streamGeom = new THREE.BoxGeometry(200, 16, 1800);
   this.streamMesh = new THREE.Mesh(streamGeom, streamMat);
